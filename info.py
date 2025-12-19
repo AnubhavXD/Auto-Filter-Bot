@@ -51,11 +51,11 @@ MULTIPLE_DB = is_enabled(os.environ.get('MULTIPLE_DB', "False"), False) # Type T
 DATABASE_URI2 = environ.get('DATABASE_URI2', "")
 
 GRP_LNK = environ.get('GRP_LNK', 'https://t.me/Request_Your_Moviez')
-CHNL_LNK = environ.get('CHNL_LNK', 'https://t.me/MoviezHarbour')
+CHNL_LNK = environ.get('CHNL_LNK', 'https://t.me/Movies_Harbour')
 OWNER_LNK = environ.get('OWNER_LNK', 'https://t.me/Sanskkar')
-UPDATE_CHANNEL_LNK = environ.get('UPDATE_CHANNEL_LNK', 'https://t.me/MoviezHarbour')
+UPDATE_CHANNEL_LNK = environ.get('UPDATE_CHANNEL_LNK', 'https://t.me/Movies_Harbour')
 
-AUTH_CHANNEL = environ.get("AUTH_CHANNEL", "-1001509714678") # add multiple channels here, separated by single space
+AUTH_CHANNEL = environ.get("AUTH_CHANNEL", "-1003646959501") # add multiple channels here, separated by single space
 AUTH_CHANNEL = [int(ch) for ch in AUTH_CHANNEL.strip().split()] if AUTH_CHANNEL else []
 AUTH_REQ_CHANNEL = environ.get('AUTH_REQ_CHANNEL', '-1002775750505 -1002702647368') # add multiple channels here, separated by single space
 AUTH_REQ_CHANNEL = [int(ch) for ch in AUTH_REQ_CHANNEL.strip().split()] if AUTH_REQ_CHANNEL else []
