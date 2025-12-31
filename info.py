@@ -114,32 +114,44 @@ SEASONS = ["s01" , "s02" , "s03" , "s04", "s05" , "s06" , "s07" , "s08" , "s09" 
 
 STREAM_MODE = bool(environ.get('STREAM_MODE', False))
 
+# ---------------- BASIC FLAGS ----------------
+
 NO_PORT = bool(environ.get('NO_PORT', False))
+
+# Detect platform ONCE
+ON_HEROKU = 'DYNO' in environ
+
+# App name (never None)
 APP_NAME = getenv("APP_NAME", "hermione-auto-filter-920a5a685465")
-if 'DYNO' in environ:
-    ON_HEROKU = True
-    APP_NAME = environ.get(APP_NAME)
+
+# ---------------- NETWORK CONFIG ----------------
+
+# Bind address (local / docker)
+BIND_ADRESS = getenv('WEB_SERVER_BIND_ADDRESS', '0.0.0.0')
+
+# Fully Qualified Domain Name (100% safe)
+if getenv("FQDN"):
+    FQDN = getenv("FQDN")
+elif ON_HEROKU:
+    FQDN = f"{APP_NAME}.herokuapp.com"
 else:
-    ON_HEROKU = False
-BIND_ADRESS = str(getenv('WEB_SERVER_BIND_ADDRESS', '0.0.0.0'))
-FQDN = str(getenv('FQDN', BIND_ADRESS)) if not ON_HEROKU or getenv('FQDN') else APP_NAME+'.herokuapp.com'
-URL = "https://{}/".format(FQDN) if ON_HEROKU or NO_PORT else "https://{}/".format(FQDN, PORT)
+    FQDN = BIND_ADRESS
+
+# SSL handling
+HAS_SSL = bool(getenv('HAS_SSL', ON_HEROKU))
+
+URL = f"https://{FQDN}/" if HAS_SSL else f"http://{FQDN}/"
+
+# ---------------- WORKER / BOT CONFIG ----------------
+
 SLEEP_THRESHOLD = int(environ.get('SLEEP_THRESHOLD', '60'))
 WORKERS = int(environ.get('WORKERS', '4'))
+
 SESSION_NAME = str(environ.get('SESSION_NAME', 'SilentXBotz'))
 MULTI_CLIENT = False
 name = str(environ.get('name', 'SilentX'))
+
 PING_INTERVAL = int(environ.get("PING_INTERVAL", "1200"))  # 20 minutes
-if 'DYNO' in environ:
-    ON_HEROKU = True
-    APP_NAME = str(getenv('APP_NAME'))
-else:
-    ON_HEROKU = False
-HAS_SSL = bool(getenv('HAS_SSL', False))
-if HAS_SSL:
-    URL = "https://{}/".format(FQDN)
-else:
-    URL = "http://{}/".format(FQDN)
 
 
 REACTIONS = ["🤝", "😇", "🤗", "😍", "👍", "🎅", "😐", "🥰", "🤩", "😱", "🤣", "😘", "👏", "😛", "😈", "🎉", "⚡️", "🫡", "🤓", "😎", "🏆", "🔥", "🤭", "🌚", "🆒", "👻", "😁"]
