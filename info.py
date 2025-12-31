@@ -115,10 +115,10 @@ SEASONS = ["s01" , "s02" , "s03" , "s04", "s05" , "s06" , "s07" , "s08" , "s09" 
 STREAM_MODE = bool(environ.get('STREAM_MODE', False))
 
 NO_PORT = bool(environ.get('NO_PORT', False))
-APP_NAME = None
+APP_NAME = 'hermione-auto-filter-920a5a685465'
 if 'DYNO' in environ:
     ON_HEROKU = True
-    APP_NAME = environ.get('hermione-auto-filter-920a5a685465')
+    APP_NAME = environ.get(APP_NAME)
 else:
     ON_HEROKU = False
 BIND_ADRESS = str(getenv('WEB_SERVER_BIND_ADDRESS', '0.0.0.0'))
